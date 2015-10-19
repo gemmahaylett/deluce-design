@@ -1,0 +1,53 @@
+<!-- /templates/index.liquid -->
+{% comment %}
+
+  This is the homepage of your site.
+
+  More info on global variables (available on all templates):
+    - http://docs.shopify.com/themes/liquid-variables/global
+{% endcomment %}
+
+{% comment %}
+  Use class grid-uniform to have evenly sized columns clear
+  each other properly at each breakpoint.
+{% endcomment %}
+  <div class="grid-uniform">
+    <div class="grid__item push--large--one-twelfth large--ten-twelfths">
+      <div class="flexslider">
+        <ul class="slides">
+          <li><img src="{{ 'slide1.jpg' | asset_url }}" /></li>
+          {% if settings.slide-2-check %}
+            <li><img src="{{ 'slide2.jpg' | asset_url }}" /></li>
+          {% endif %}
+          {% if settings.slide-3-check %}
+            <li><img src="{{ 'slide3.jpg' | asset_url }}" /></li>
+          {% endif %}
+          {% if settings.slide-4-check %}
+            <li><img src="{{ 'slide4.jpg' | asset_url }}" /></li>
+          {% endif %}
+          {% if settings.slide-5-check %}
+            <li><img src="{{ 'slide5.jpg' | asset_url }}" /></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+<script>
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    slideshow: true,
+    controlNav: false,               
+    directionNav: false
+  });
+});
+</script>
+  <div class="insta-title grid__item push--large--one-twelfth large--ten-twelfths">
+    <h5 class="styled-header left"><span>Follow My Journey On Instagram</span></h5>
+    <div class="right insta-handle">@delucedesign</div>
+  </div>
+    <div class="grid__item push--large--one-twelfth large--ten-twelfths">    
+      <div id="instafeed" class="grid-uniform"></div>
+      {{ 'instafeed-grid.js' | asset_url | script_tag }}
+  </div>
+</div>

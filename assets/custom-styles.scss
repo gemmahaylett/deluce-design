@@ -1,0 +1,23 @@
+.zero-margin-list li{ 
+ margin: 0px;
+}
+
+.nav-bar {
+  background-color: transparent;
+}
+
+.top-absolute-pos {
+  position: absolute;
+  top: 0; 
+}
+
+#cartToggle::before {
+  content: " ";
+  display: inline-block;
+  width: 32px;
+  height: 24px;
+  background: url(cart.png) no-repeat center center;
+  position: relative;
+  top: 8px;
+  right: 4px;
+}
