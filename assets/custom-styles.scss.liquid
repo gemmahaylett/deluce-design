@@ -4,66 +4,29 @@ $colorSecondary: {{ settings.color_secondary }};
 $headerFontStack: 'Londrina Solid', cursive;
 $bodyFontStack: 'bitterregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
+$small: 480px;
+$medium: 1015px;
+$large: 1016px;
+
+/* =Structure
+----------------------------------------------- */
+
+
+
+/* =Utility
+----------------------------------------------- */
 
 .zero-margin-list li{ 
- margin: 0px;
-}
-
-.nav-bar {
-  background-color: transparent;
-}
-
-.nav-bar a {
-  color: $colorSecondary;
-  letter-spacing: 2px;
-}
-
-.site-nav__link {
-  padding: 0px 40px 6px;
+  margin: 0px;
 }
 
 .top-absolute-pos {
-  position: absolute;
-  top: 0; 
-}
-
-#cartToggle::before {
-  content: " ";
-  display: inline-block;
-  width: 32px;
-  height: 24px;
-  background: url({{ 'cart.png' | assets }}) no-repeat center center;
-  position: relative;
-  top: 8px;
-  right: 4px;
+  margin-left: -30px;
+  margin-top: -15px;
 }
 
 .xs-grid-margin {
   padding-left: 8px;
-}
-
-.top-nav-border {
-  content: '';
-  display: block;
-  height: 10px;
-  background: url({{ 'top-nav.png' | assets }}) repeat-x;
-}
-
-.bottom-nav-border {
-  content: '';
-  display: block;
-  height: 10px;
-  background: url({{ 'bottom-nav.png' | assets }}) repeat-x;
-}
-
-.newsletter-title {
-  margin: 0;
-  padding-top: 8px;
-  padding-right: 5px;
-}
-
-.newsletter-btn {
-  width: auto;
 }
 
 .flex-middle-align {
@@ -79,75 +42,38 @@ $bodyFontStack: 'bitterregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   letter-spacing: 2px;
 }
 
-.insta-title {
-  background: url({{ 'underline.png' | assets }}) no-repeat left center;
-  padding-left: 0;
-  padding-bottom: 0.75em;
+/* =Menu
+-------------------------------------------------------------- */
+
+.nav-bar {
+  background-color: transparent;
 }
 
-.insta-title span {
-  padding-bottom: 3px;
-  position: relative;
-  top: -8px;
-}
-
-.insta-title h5 {
-  display: inline-block;
-}
-
-.insta-handle {
+.nav-bar a {
   color: $colorSecondary;
   letter-spacing: 2px;
 }
 
-.insta-item {
-  display: inline-block;
-  padding-right: 4px;
-  padding-left: 4px;
+.site-nav__link {
+  padding: 0px 0px 6px 105px
 }
 
-.insta-outer {
-  padding-left: 0;
-  left: 30px;
-  position: relative;
+.site-nav__link-main {
+  margin-left: -100px;
 }
 
-#instafeed {
-  margin-left: -34px;
-  margin-right: -4px;
+.top-nav-border {
+  content: '';
+  display: block;
+  height: 10px;
+  background: url({{ 'top-nav.png' | assets }}) repeat-x;
 }
 
-#newsletter-form input[type=submit] {
-  background: url(ok.png) no-repeat;
-  text-indent: -9999em;
-  padding: 0;
-  width: 80px;
-  height: 37px;
-  border: none;
-}
-
-.header-link {
-  display: inline-block;
-  padding-left: 10px;
-}
-
-.header-links {
-  font-family: $headerFontStack;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: $colorPrimary;
-}
-
-#newsletter-form input[type=email] {
-  height: 27px;
-}
-
-.site-footer p{
-  margin-top: 90px;
-  font-size: 8px;
-  text-transform: uppercase;
-  line-height: 2.8;
-  letter-spacing: 2px;
+.bottom-nav-border {
+  content: '';
+  display: block;
+  height: 10px;
+  background: url({{ 'bottom-nav.png' | assets }}) repeat-x;
 }
 
 .site-nav--search::before {
@@ -190,35 +116,9 @@ $bodyFontStack: 'bitterregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: white;
 }
 
-.social-icons li {
-  margin: 0; 
-  padding: 0; 
-  list-style: none;
-  position: relative; 
-  top: 0;
+.site-nav__link .icon-arrow-down {
+  color: #92FFE4;
 }
-
-.social-icons li a {
-  background: url({{'social-btn.png' | assets }});
-}
-
-.social-icons li, .social-icons a {
-  height: 38px; display: block;
-}
-
-#facebook a { left: 0; width: 38px;}
-#twitter a {left: 42px; width: 38px;}
-#instagram a {left: 83px; width: 38px;}
-
-#facebook a:hover {
-  background: transparent url({{'social-btn.png' | assets }})
-  0 -38px no-repeat;}
-#twitter a:hover {
-  background: transparent url({{'social-btn.png' | assets }})
-  -42px -38px no-repeat;}
-#instagram a:hover {
-  background: transparent url({{'social-btn.png' | assets }})
-  -83px -38px no-repeat;}
 
 .site-nav__dropdown a {
   background-color: white;
@@ -239,7 +139,212 @@ input[type=checkbox]:checked ~ .site-nav{
     display: block;
 }
 
-@media screen and (max-width : 760px){
+/* =Content
+----------------------------------------------- */
+
+.main-content {
+  margin-top: 25px;
+}
+
+/* =Header
+----------------------------------------------- */
+
+.cart-link {
+  margin-right: -15px;
+}
+
+#cartToggle::before {
+  content: " ";
+  display: inline-block;
+  width: 32px;
+  height: 24px;
+  background: url({{ 'cart.png' | assets }}) no-repeat center center;
+  position: relative;
+  top: 8px;
+  right: 4px;
+}
+
+.header-link {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.header-links {
+  font-family: $headerFontStack;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $colorPrimary;
+}
+
+/* =Home
+----------------------------------------------- */
+
+.flexslider {
+  margin: 0 0 55px;
+}
+
+.insta-title {
+  background: url({{ 'underline.png' | assets }}) no-repeat left center;
+  padding-left: 0;
+  padding-bottom: 1em;
+}
+
+.insta-title span {
+  padding-bottom: 3px;
+  position: relative;
+  top: -8px;
+  color: #888;
+}
+
+.insta-title h5 {
+  display: inline-block;
+}
+
+.insta-handle {
+  color: $colorSecondary;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+.insta-item {
+  display: inline-block;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.insta-outer {
+  padding-left: 0;
+  left: 30px;
+  position: relative;
+}
+
+#instafeed {
+  margin-left: -34px;
+  margin-right: -4px;
+}
+
+.overlay {
+  position:relative;
+}
+
+.overlay img {
+  width:100%;
+  vertical-align:top;
+}
+
+.overlay:after, .overlay:before {
+  position:absolute;
+  opacity:0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.overlay:after {
+  content:'\A';
+  width:100%; height:100%;
+  top:0; left:0;
+  background:rgba(0,0,0,0.6);
+}
+.overlay:hover:after, .overlay:hover:before {
+  opacity:1;
+}
+
+/* =Footer
+----------------------------------------------- */
+
+.newsletter-title {
+  margin: 0;
+  padding-top: 12px;
+  padding-right: 5px;
+  color: #888;
+}
+
+.newsletter-btn {
+  width: auto;
+}
+
+#newsletter-form input[type=submit] {
+  background: url(ok.png) no-repeat;
+  text-indent: -9999em;
+  padding: 0;
+  width: 80px;
+  height: 37px;
+  border: none;
+}
+
+#newsletter-form input[type=email] {
+  height: 24px;
+  width: 207px;
+  margin: 0px 8px 0px 5px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #888;
+  border: solid 1px #ddd;
+  padding: 0 0 0 5px;
+}
+
+.site-footer p{
+  margin-top: 100px;
+  font-size: 9px;
+  text-transform: uppercase;
+  line-height: 2.8;
+  letter-spacing: 2px;
+  color: #bcbcbc;
+}
+
+.site-footer {
+  padding: 20px 0;
+}
+
+.site-footer-cta {
+  margin-left: -30px;
+}
+
+.social-icons li {
+  margin: 0; 
+  padding: 0; 
+  list-style: none;
+  position: relative; 
+  top: 0;
+}
+
+.social-icons li a {
+  background: url({{'social-btn.png' | assets }});
+  width: 38px;
+  background-repeat: no-repeat;
+}
+
+.social-icons li, .social-icons a {
+  height: 38px; display: inline-block;
+}
+
+#facebook a { 
+  background-position: 0px -1px;
+}
+#twitter a { 
+  background-position: -40px 0px;
+}
+#instagram a {
+  background-position: -82px 0px;
+}
+
+#facebook a:hover {
+  background: transparent url({{'social-btn.png' | assets }})
+  0 -38px no-repeat;}
+#twitter a:hover {
+  background: transparent url({{'social-btn.png' | assets }})
+  -40px -37px no-repeat;}
+#instagram a:hover {
+  background: transparent url({{'social-btn.png' | assets }})
+  -82px -37px no-repeat;
+}
+
+@media screen and (max-width : 1045px) {
+  .cart-link {
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width : $medium){
   /*Make dropdown links appear inline*/
   .site-nav__dropdown{
     position: static;
@@ -282,5 +387,55 @@ input[type=checkbox]:checked ~ .site-nav{
 
   .dropdown-border {
     border: none;
+  }
+
+  .top-absolute-pos {
+    margin-left: 0px;
+  }
+
+  .site-footer-cta {
+    margin-left: 0px;
+  }
+
+  .dropdown-border:first-child {
+    border-image: none;
+  }
+}
+
+@media screen and (max-width: 785px) {
+
+  .social-icons {
+    float: none !important;
+    text-align: center;
+  }
+
+  .site-footer .grid__item {
+    width: 100%;
+  }
+
+  .newsletter {
+    margin: 0 auto;
+  }
+
+  .site-footer-cta {
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width : $small) {
+  .social-icons {
+    float: none !important;
+  }
+
+  .insta-item {
+    margin-bottom: 8px;
+  }
+
+  .insta-item:last-child {
+    display: none;
+  }
+
+  .site-footer-cta {
+    display: block;
   }
 }

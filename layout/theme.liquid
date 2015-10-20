@@ -85,10 +85,11 @@
     <header class="site-header" role="banner">
       <div class="wrapper">
         <div class="grid--full grid--table">
-          <div class="grid__item large--one-quarter">
-          	<img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}">
+          <div class="grid__item large--one-twelfth medium-down--hide"></div>
+          <div class="grid__item large--two-twelfths medium--one-twelfth small--one-twelfth">
+          	<a href="http://www.etsy.com" target="_blank"><img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}"></a>
           </div>
-          <div class="grid__item large--one-half">
+          <div class="grid__item large--six-twelfths">
             {% comment %}
               Use the uploaded logo from theme settings if enabled.
               Site name gets precedence with H1 tag on homepage, div on other pages.
@@ -111,7 +112,7 @@
               </div>
             {% endif %}
           </div>
-          <div class="header-links grid__item large--one-quarter large--text-right medium-down--hide">
+          <div class="header-links grid__item large--two-twelfths medium--two-twelfths large--text-right">
             {% comment %}
               Show number of items in the cart and total cost in the /cart link
 
@@ -141,7 +142,7 @@
                 {% endif %}
               </div>
             {% endif %}
-            <div class="header-link">
+            <div class="header-link cart-link">
               <a href="/cart" id="cartToggle" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
                 {{ 'layout.cart.title' | t }}
               </a>
@@ -175,7 +176,7 @@
               {% assign child_list_handle = link.title | handleize %}
               {% if linklists[child_list_handle].links != blank %}
                 <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
-                  <a href="{{ link.url }}" class="medium-down--hide site-nav__link">
+                  <a href="{{ link.url }}" class="medium-down--hide site-nav__link-main site-nav__link">
                     {{ link.title }}
                     <span class="icon icon-arrow-down" aria-hidden="true"></span>
                   </a>
@@ -217,7 +218,7 @@
       <div class="wrapper">
         <div class="grid">
           {% if settings.footer_newsletter_enable %}
-            <div class="flex-middle-align grid__item large--one-half medium--one-half">
+            <div class="site-footer-cta flex-middle-align grid__item push--large--one-twelfth large--seven-twelfths medium--eight-tenths small--one-whole">
               {% comment %}
                 MailChimp is the go-to newsletter service for Shopify.
                 Use the link below to find your MailChimp form action
@@ -226,23 +227,25 @@
                 MailChimp newsletter integration and requirement:
                  - http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action
               {% endcomment %}
-              <h4 class="styled-header newsletter-title left">{{ 'layout.footer.newsletter_title' | t }}</h4>
-              {% if settings.newsletter_form_action != blank %}
-                {% assign form_action = settings.newsletter_form_action %}
-              {% else %}
-                {% assign form_action = '#' %}
-              {% endif %}
-              <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group flex-middle-align">
-                <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
-                <span class="input-group-btn newsletter-btn">
-                  <input type="submit" name="subscribe" id="subscribe">
-                </span>
-              </form>
+              <div class="newsletter">
+                <h4 class="styled-header newsletter-title left">{{ 'layout.footer.newsletter_title' | t }}</h4>
+                {% if settings.newsletter_form_action != blank %}
+                  {% assign form_action = settings.newsletter_form_action %}
+                {% else %}
+                  {% assign form_action = '#' %}
+                {% endif %}
+                <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group flex-middle-align">
+                  <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                  <span class="input-group-btn newsletter-btn">
+                    <input type="submit" name="subscribe" id="subscribe">
+                  </span>
+                </form>
+              </div>
             </div>
           {% endif %}
           {% if settings.footer_social_enable %}
-            <div class="grid__item large--one-half medium--one-half">
-                <ul class="inline-list social-icons zero-margin-list large--text-right">
+            <div class="grid__item large--five-twelfths medium--two-tenths small--one-whole">
+                <ul class="inline-list social-icons zero-margin-list right">
                   {% if settings.social_facebook_link != blank %}
                     <li id="facebook">
                       <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">

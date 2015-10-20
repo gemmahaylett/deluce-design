@@ -163,8 +163,8 @@
         "type": "image",
         "id": "logo.png",
         "label": "Custom Logo",
-        "max-width": 450,
-        "max-height": 200,
+        "max-width": 556,
+        "max-height": 179,
         "info": "Maximum logo dimensions are 450px wide by 200px high. The uploaded file will be resized to fit within those constraints."
       },
       {
