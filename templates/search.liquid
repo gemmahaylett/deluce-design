@@ -27,16 +27,17 @@
 
   <div class="grid">
     <div class="grid__item large--two-thirds push--large--one-sixth">
-
+      <div class="page-title">
       {% if search.performed %}
         {% if search.results_count == 0 %}
-          <h1 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+          <h1 class="brush-underline text-center page-header-style text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
         {% else %}
-          <h1 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+          <h1 class="brush-underline text-center page-header-style text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
         {% endif %}
       {% else %}
-        <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+        <h1 class="brush-underline text-center page-header-style text-center">{{ 'general.search.title' | t }}</h1>
       {% endif %}
+      </div>
 
       {% include 'search-bar' %}
 
@@ -81,7 +82,7 @@
                     If we don't have a featured_image, add a push-- class to keep the alignment the same
                   {% endcomment %}
                   <div class="grid__item two-thirds {% unless item.featured_image %}push--one-third{% endunless %}">
-                    <h3>{{ item.title | link_to: item.url }}</h3>
+                    <h3 class="page-header-style">{{ item.title | link_to: item.url }}</h3>
 
                     {% if item.price %}
                       <p>
@@ -132,7 +133,7 @@
                   </a>
                 {% endif %}
 
-                <h5>{{ item.title | link_to: item.url }}</h5>
+                <h5 class="page-header-style">{{ item.title | link_to: item.url }}</h5>
 
                 {% if item.price %}
                   <p>

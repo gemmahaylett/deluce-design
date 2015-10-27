@@ -84,35 +84,12 @@
   <div id="PageContainer" class="is-moved-by-drawer">
     <header class="site-header" role="banner">
       <div class="wrapper">
-        <div class="grid--full grid--table">
+        <div class="grid">
           <div class="grid__item large--one-twelfth medium-down--hide"></div>
-          <div class="grid__item large--two-twelfths medium--one-twelfth small--one-twelfth">
-          	<a href="http://www.etsy.com" target="_blank"><img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}"></a>
+          <div class="grid__item large--five-twelfths medium-down--hide">
+            <a href="http://www.etsy.com" target="_blank"><img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}"></a>
           </div>
-          <div class="grid__item large--six-twelfths">
-            {% comment %}
-              Use the uploaded logo from theme settings if enabled.
-              Site name gets precedence with H1 tag on homepage, div on other pages.
-            {% endcomment %}
-            {% if template == 'index' %}
-              <h1 class="site-header__logo" itemscope itemtype="http://schema.org/Organization">
-            {% else %}
-              <div class="h1 site-header__logo" itemscope itemtype="http://schema.org/Organization">
-            {% endif %}
-              {% if settings.logo_use_image %}
-                <a href="/" itemprop="url" class="site-header__logo-link">
-                  <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-                </a>
-              {% else %}
-                <a href="/" itemprop="url">{{ shop.name }}</a>
-              {% endif %}
-            {% if template == 'index' %}
-              </h1>
-            {% else %}
-              </div>
-            {% endif %}
-          </div>
-          <div class="header-links grid__item large--two-twelfths medium--two-twelfths large--text-right">
+          <div class="header-links grid__item large--six-twelfths medium--one-whole large--text-right medium--text-center small--text-center">
             {% comment %}
               Show number of items in the cart and total cost in the /cart link
 
@@ -122,6 +99,11 @@
                 - Documentation:  http://shopify.com/timber#ajax-cart
             {% endcomment %}
             {% if shop.customer_accounts_enabled %}
+              <div class="header-link etsy-link">
+                <a href="http://www.etsy.com">
+                  Etsy Shop
+                </a>
+              </div>
               <div class="header-link">
                 {% if customer %}
                   {% if customer.first_name != blank %}
@@ -148,6 +130,33 @@
               </a>
             </div>
           </div>
+        </div>
+        <div class="grid--full grid--table">
+          
+          <div class="grid__item large--six-twelfths push--large--three-twelfths">
+            {% comment %}
+              Use the uploaded logo from theme settings if enabled.
+              Site name gets precedence with H1 tag on homepage, div on other pages.
+            {% endcomment %}
+            {% if template == 'index' %}
+              <h1 class="site-header__logo" itemscope itemtype="http://schema.org/Organization">
+            {% else %}
+              <div class="h1 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+            {% endif %}
+              {% if settings.logo_use_image %}
+                <a href="/" itemprop="url" class="site-header__logo-link">
+                  <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+                </a>
+              {% else %}
+                <a href="/" itemprop="url">{{ shop.name }}</a>
+              {% endif %}
+            {% if template == 'index' %}
+              </h1>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+          
         </div>
 
       </div>
@@ -234,12 +243,14 @@
                 {% else %}
                   {% assign form_action = '#' %}
                 {% endif %}
-                <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group flex-middle-align">
-                  <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
-                  <span class="input-group-btn newsletter-btn">
-                    <input type="submit" name="subscribe" id="subscribe">
-                  </span>
-                </form>
+                <div class="newsletter-outer">
+                  <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group flex-middle-align">
+                    <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field newsletter-email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                    <span class="input-group-btn newsletter-btn">
+                      <input type="submit" name="subscribe" id="subscribe">
+                    </span>
+                  </form>
+                </div>
               </div>
             </div>
           {% endif %}

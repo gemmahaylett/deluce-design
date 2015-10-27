@@ -9,53 +9,61 @@
 
 {% endcomment %}
 
-<div class="grid">
+<div id="contact" class="grid page">
 
-  <div class="grid__item large--two-thirds push--large--one-sixth">
+  <div class="grid__item">
+    <div class="page-title">
+      <h1 class="brush-underline text-center page-header-style">{{ page.title }}</h1>
+    </div>
+    <div class="grid">
 
-    <h1>{{ page.title }}</h1>
-
-    {% comment %}
-      Regular page content goes here.
-    {% endcomment %}
-    <div class="rte">
-      {{ page.content }}
+    <div class="grid__item push--large--one-twelfth large--three-twelfths  medium--one-whole text-center medium--margin-btm">
+      <img src="{{ 'contact.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
     </div>
 
     {% comment %}
       Contact form starts here
     {% endcomment %}
-    <div class="form-vertical">
-      {% form 'contact' %}
+    <div class="grid__item push--large--one-twelfth large--four-twelfths medium--one-half">
+      <div class="form-vertical">
+        {% form 'contact' %}
 
-        {% comment %}
-          Successful message
-        {% endcomment %}
-        {% if form.posted_successfully? %}
-          <p class="note form-success">
-            {{ 'contact.form.post_success' | t }}
-          </p>
-        {% endif %}
+          {% comment %}
+            Successful message
+          {% endcomment %}
+          {% if form.posted_successfully? %}
+            <p class="note form-success">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          {% endif %}
 
-        {{ form.errors | default_errors }}
+          {{ form.errors | default_errors }}
 
-        {% assign name_attr = 'contact.form.name' | t | handle %}
-        <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
-        <input type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          {% assign name_attr = 'contact.form.name' | t | handle %}
+          <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
+          <input type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
 
-        <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
-        <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+          <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
+          <input type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
 
-        {% assign name_attr = 'contact.form.phone' | t | handle %}
-        <label for="ContactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
-        <input type="tel" id="ContactFormPhone" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+          <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
-        <label for="ContactFormMessage" class="hidden-label">{{ 'contact.form.message' | t }}</label>
-        <textarea rows="10" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          <input type="submit" class="send-btn left" value="">
 
-        <input type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">
+        {% endform %}
+      </div>
+    </div>
 
-      {% endform %}
+    <div class="grid__item push--large--one-twelfth large--two-twelfths medium--one-half">
+      {% comment %}
+        Regular page content goes here.
+      {% endcomment %}
+      <div class="rte">
+        {{ page.content }}
+      </div>
+    </div>
+    
     </div>
 
   </div>

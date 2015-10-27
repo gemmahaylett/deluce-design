@@ -165,7 +165,7 @@
         "label": "Custom Logo",
         "max-width": 556,
         "max-height": 179,
-        "info": "Maximum logo dimensions are 450px wide by 200px high. The uploaded file will be resized to fit within those constraints."
+        "info": "Maximum logo dimensions are 555px wide by 180px high. The uploaded file will be resized to fit within those constraints."
       },
       {
         "type": "text",
@@ -189,6 +189,32 @@
         "label": "16px x 16px png",
         "max-width": 16,
         "max-height": 16
+      }
+    ]
+  },
+  {
+    "name": "Licensing",
+    "settings": [
+      {
+        "type": "image",
+        "id": "licensing.png",
+        "label": "Licensing Image",
+        "max-width": 454,
+        "max-height": 366,
+        "info": "Maximum logo dimensions are 454px wide by 366px high. The uploaded file will be resized to fit within those constraints."
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "image",
+        "id": "contact.png",
+        "label": "Contact Image",
+        "max-width": 246,
+        "max-height": 323,
+        "info": "Maximum logo dimensions are 246px wide by 323px high. The uploaded file will be resized to fit within those constraints."
       }
     ]
   },

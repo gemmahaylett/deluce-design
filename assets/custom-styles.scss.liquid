@@ -3,10 +3,13 @@ $colorSecondary: {{ settings.color_secondary }};
 
 $headerFontStack: 'Londrina Solid', cursive;
 $bodyFontStack: 'bitterregular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$pageHeaderFont: 'GoodlifeSansCondensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 $small: 480px;
 $medium: 1015px;
 $large: 1016px;
+
+$resp-margin: 25px;
 
 /* =Structure
 ----------------------------------------------- */
@@ -42,6 +45,30 @@ $large: 1016px;
   letter-spacing: 2px;
 }
 
+.page-title {
+  text-align: center;
+  padding-bottom: 2em;
+}
+
+.brush-underline {
+  border-bottom-width: 17px;
+  border-image: url({{ 'underline.png' | assets }}) 0 0 22 0;
+  border-style: solid;
+  padding: 0 2em;
+  display: inline-block;
+}
+
+.page-header-style {
+  font-family: $pageHeaderFont;
+  font-weight: normal;
+  color: $colorSecondary;
+  font-size: 30px;
+}
+
+.zero-padding {
+  padding: 0 !important;
+}
+
 /* =Menu
 -------------------------------------------------------------- */
 
@@ -66,14 +93,14 @@ $large: 1016px;
   content: '';
   display: block;
   height: 10px;
-  background: url({{ 'top-nav.png' | assets }}) repeat-x;
+  background: url({{ 'top-nav.png' | assets }}) center top no-repeat;
 }
 
 .bottom-nav-border {
   content: '';
   display: block;
   height: 10px;
-  background: url({{ 'bottom-nav.png' | assets }}) repeat-x;
+  background: url({{ 'bottom-nav.png' | assets }}) center bottom no-repeat;
 }
 
 .site-nav--search::before {
@@ -106,12 +133,13 @@ $large: 1016px;
 .dropdown-border:first-child {
   border-right-width: 6px;
   border-image: url({{'submenu-border.png' | assets }}) 0 50 0 0;
+  border-style: solid;
 }
 
 .dropdown-shadow {
-  box-sizing: 0px 3px 5px rgba(100, 100, 100, 0.49);
+  -moz-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
   -webkit-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
-  -mox-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
+  box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
   padding: 10px;
   background-color: white;
 }
@@ -146,6 +174,36 @@ input[type=checkbox]:checked ~ .site-nav{
   margin-top: 25px;
 }
 
+.page {
+  margin-top: 30px;
+}
+
+.rte {
+  color: $colorSecondary;
+}
+
+/* Contact
+----------------------------------------------- */
+
+#contact .rte p {
+  font-size: 12px;
+  color: $colorSecondary;
+  line-height: 2;
+  margin: 0;
+
+  strong {
+    letter-spacing: .2em;
+  }
+}
+
+.send-btn {
+  background: url({{'send-btn.png' | asset}}) no-repeat;
+  width: 175px;
+  height: 44px;
+  border: none;
+  margin-top: 17px;
+}
+
 /* =Header
 ----------------------------------------------- */
 
@@ -176,6 +234,15 @@ input[type=checkbox]:checked ~ .site-nav{
   color: $colorPrimary;
 }
 
+.site-header__logo a {
+  position: relative;
+  margin-top: -90px;
+}
+
+.etsy-link {
+  display: none;
+}
+
 /* =Home
 ----------------------------------------------- */
 
@@ -183,16 +250,11 @@ input[type=checkbox]:checked ~ .site-nav{
   margin: 0 0 55px;
 }
 
-.insta-title {
-  background: url({{ 'underline.png' | assets }}) no-repeat left center;
+.insta-title { 
   padding-left: 0;
-  padding-bottom: 1em;
 }
 
 .insta-title span {
-  padding-bottom: 3px;
-  position: relative;
-  top: -8px;
   color: #888;
 }
 
@@ -242,7 +304,7 @@ input[type=checkbox]:checked ~ .site-nav{
   content:'\A';
   width:100%; height:100%;
   top:0; left:0;
-  background:rgba(0,0,0,0.6);
+  background:rgba(219,255,246,0.7);
 }
 .overlay:hover:after, .overlay:hover:before {
   opacity:1;
@@ -273,7 +335,7 @@ input[type=checkbox]:checked ~ .site-nav{
 
 #newsletter-form input[type=email] {
   height: 24px;
-  width: 207px;
+  width: 440px;
   margin: 0px 8px 0px 5px;
   font-size: 10px;
   letter-spacing: 1px;
@@ -338,6 +400,55 @@ input[type=checkbox]:checked ~ .site-nav{
   -82px -37px no-repeat;
 }
 
+/* =Stockist
+----------------------------------------------- */
+#stockist .rte h4{
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-family: $bodyFontStack;
+  margin: 0 0 6px 0;
+}
+
+#stockist .rte p {
+  font-size: 12px;
+}
+
+#stockist h1 {
+  margin-bottom: 0;
+}
+
+.stockist-border {
+  content: '';
+  display: block;
+  height: 15px;
+  background: url({{ 'stockists-border.png' | assets }}) center top no-repeat;
+  margin-bottom: 50px !important;
+}
+
+/* =About
+----------------------------------------------- */
+
+#about .rte p {
+  font-size: 15px;
+}
+
+#about .rte h2 {
+  font-family: 'Freeland';
+  color: #dfde21;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 1.3em 0;
+}
+
+.letterpress-image {
+  margin-top: 5%;
+}
+
+/* =Media Queries
+----------------------------------------------- */
 @media screen and (max-width : 1045px) {
   .cart-link {
     margin-right: 0px;
@@ -352,9 +463,9 @@ input[type=checkbox]:checked ~ .site-nav{
   }
 
   .dropdown-shadow {
-    box-sizing: none;
+    box-shadow: none;
     -webkit-box-shadow: none;
-    -mox-box-shadow: none;
+    -moz-box-shadow: none;
     padding: 10px;
   }
 
@@ -399,6 +510,40 @@ input[type=checkbox]:checked ~ .site-nav{
 
   .dropdown-border:first-child {
     border-image: none;
+    border-right-width: 0;
+    border-style: hidden;
+  }
+
+  .site-header__logo a {
+    margin-top: 0px;
+  }
+
+  .etsy-link{
+    display: inline-block;
+  }
+  
+  .header-links {
+    margin-bottom: 10px;
+  }
+
+  .stockist {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+  }
+
+  .medium--margin-btm {
+    margin-bottom: $resp-margin;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #about .grid__item {
+    width: 100%;
+  }
+
+  #about img {
+    margin-bottom: 25px;
   }
 }
 
@@ -435,7 +580,29 @@ input[type=checkbox]:checked ~ .site-nav{
     display: none;
   }
 
-  .site-footer-cta {
+  .insta-title h5, .insta-handle, .newsletter-title {
+    float: none !important;
+  }
+
+  .insta-title, .insta-handle, .newsletter-title {
+    text-align: center;
+  }
+
+  .insta-handle {
+    margin-bottom: 3em;
+  }
+
+  .newspaper {
+    -webkit-column-count: 1; /* Chrome, Safari, Opera */
+    -moz-column-count: 1; /* Firefox */
+    column-count: 1;
+  }
+
+  .small--flex-align-none {
     display: block;
+  }
+
+  .small--margin-btm {
+    margin-bottom: $resp-margin;
   }
 }
