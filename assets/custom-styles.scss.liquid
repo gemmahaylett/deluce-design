@@ -14,7 +14,14 @@ $resp-margin: 25px;
 /* =Structure
 ----------------------------------------------- */
 
+/* =Typography
+----------------------------------------------- */ 
 
+.page {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $pageHeaderFont;
+  }
+}
 
 /* =Utility
 ----------------------------------------------- */
@@ -137,11 +144,12 @@ $resp-margin: 25px;
 }
 
 .dropdown-shadow {
-  -moz-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
-  -webkit-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
-  box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
+  -moz-box-shadow: 0 4px 2px -1px rgba(100, 100, 100, 0.49);
+  -webkit-box-shadow: 0 4px 2px -1px rgba(100, 100, 100, 0.49);
+  box-shadow: 0 4px 2px -1px rgba(100, 100, 100, 0.49);
   padding: 10px;
   background-color: white;
+  margin-top: 8px;
 }
 
 .site-nav__link .icon-arrow-down {
@@ -289,26 +297,34 @@ input[type=checkbox]:checked ~ .site-nav{
   position:relative;
 }
 
-.overlay img {
-  width:100%;
-  vertical-align:top;
-}
-
-.overlay:after, .overlay:before {
-  position:absolute;
-  opacity:0;
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-}
-.overlay:after {
-  content:'\A';
-  width:100%; height:100%;
-  top:0; left:0;
-  background:rgba(219,255,246,0.7);
-}
-.overlay:hover:after, .overlay:hover:before {
-  opacity:1;
-}
+.tint {  
+  position: relative;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  width: 100%;
+}  
+  
+.tint:after {  
+  content: "";  
+  display: block;  
+  position: absolute;  
+  top: 0;  
+  bottom: 4px;  
+  left: 0;  
+  right: 0;  
+  background: none;  
+  -moz-transition: background .3s linear;  
+  -webkit-transition: background .3s linear;  
+  -ms-transition: background .3s linear;  
+  -o-transition: background .3s linear;  
+  transition: background .3s linear;  
+}  
+  
+.tint:hover:after {  
+  background: rgba(219,255,246, 0.7);   
+} 
 
 /* =Footer
 ----------------------------------------------- */
@@ -320,28 +336,37 @@ input[type=checkbox]:checked ~ .site-nav{
   color: #888;
 }
 
+.newsletter {
+  display: inline-block;
+}
+
 .newsletter-btn {
-  width: auto;
+  width: 38px;
+}
+
+#newsletter-form {
+  float: left;
 }
 
 #newsletter-form input[type=submit] {
   background: url(ok.png) no-repeat;
   text-indent: -9999em;
   padding: 0;
-  width: 80px;
+  width: 40px;
   height: 37px;
   border: none;
 }
 
 #newsletter-form input[type=email] {
   height: 24px;
-  width: 440px;
+  width: 200px;
   margin: 0px 8px 0px 5px;
   font-size: 10px;
   letter-spacing: 1px;
   color: #888;
   border: solid 1px #ddd;
   padding: 0 0 0 5px;
+  margin-top: 6px;
 }
 
 .site-footer p{
@@ -359,6 +384,11 @@ input[type=checkbox]:checked ~ .site-nav{
 
 .site-footer-cta {
   margin-left: -30px;
+}
+
+.social-footer {
+  display: inline-block;
+  float: right;
 }
 
 .social-icons li {
@@ -554,22 +584,69 @@ input[type=checkbox]:checked ~ .site-nav{
     text-align: center;
   }
 
-  .site-footer .grid__item {
-    width: 100%;
-  }
-
-  .newsletter {
-    margin: 0 auto;
-  }
-
   .site-footer-cta {
     margin-bottom: 15px;
   }
 }
 
+@media screen and (max-width: 740px) {
+  .newsletter-footer, .social-footer {
+    width: 100%;
+    text-align: center;
+  }
+
+  #newsletter-form input[type=email] {
+    width: 170px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .newsletter-title {
+    float: none !important;
+    text-align: center;
+  }
+
+  .newsletter {
+    width: auto;
+  }
+
+  #newsletter-form {
+    margin: auto;
+  }
+
+  #newsletter-form input[type=email] {
+    width: 300px;
+  }
+
+  .insta-title {
+    width: 100%;
+    text-align: center;
+  }
+
+  .insta-title h5 {
+    float: none !important;
+  }
+
+  .insta-handle-outer {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .insta-handle {
+    float: none !important;
+    text-align: center;
+    margin-bottom: 3em;
+  }
+}
+
+
 @media screen and (max-width : $small) {
   .social-icons {
     float: none !important;
+  }
+
+  .newsletter-outer form {
+    margin: 0 auto;
   }
 
   .insta-item {
@@ -604,5 +681,12 @@ input[type=checkbox]:checked ~ .site-nav{
 
   .small--margin-btm {
     margin-bottom: $resp-margin;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  #newsletter-form input[type=email] {
+    width: 250px;
   }
 }

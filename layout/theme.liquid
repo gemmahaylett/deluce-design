@@ -58,36 +58,13 @@
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
 
-  <div id="NavDrawer" class="drawer drawer--left">
-    <div class="drawer__header">
-      <div class="drawer__title h3">{{ 'layout.drawers.browse' | t }}</div>
-      <div class="drawer__close js-drawer-close">
-        <button type="button" class="icon-fallback-text">
-          <span class="icon icon-x" aria-hidden="true"></span>
-          <span class="fallback-text">{{ 'layout.drawers.close_menu' | t }}</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div id="CartDrawer" class="drawer drawer--right">
-    <div class="drawer__header">
-      <div class="drawer__title h3">{{ 'cart.general.title' | t }}</div>
-      <div class="drawer__close js-drawer-close">
-        <button type="button" class="icon-fallback-text">
-          <span class="icon icon-x" aria-hidden="true"></span>
-          <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
-        </button>
-      </div>
-    </div>
-    <div id="CartContainer"></div>
-  </div>
   <div id="PageContainer" class="is-moved-by-drawer">
     <header class="site-header" role="banner">
       <div class="wrapper">
         <div class="grid">
           <div class="grid__item large--one-twelfth medium-down--hide"></div>
           <div class="grid__item large--five-twelfths medium-down--hide">
-            <a href="http://www.etsy.com" target="_blank"><img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}"></a>
+            <a href="https://www.etsy.com/shop/jdeluce" target="_blank"><img class="top-absolute-pos" src="{{ 'etsy.png' | asset_url }}"></a>
           </div>
           <div class="header-links grid__item large--six-twelfths medium--one-whole large--text-right medium--text-center small--text-center">
             {% comment %}
@@ -100,11 +77,11 @@
             {% endcomment %}
             {% if shop.customer_accounts_enabled %}
               <div class="header-link etsy-link">
-                <a href="http://www.etsy.com">
+                <a href="https://www.etsy.com/shop/jdeluce">
                   Etsy Shop
                 </a>
               </div>
-              <div class="header-link">
+              <div class="header-link hide">
                 {% if customer %}
                   {% if customer.first_name != blank %}
                     {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
@@ -114,7 +91,7 @@
                   {% endif %}
                   | {{ 'layout.customer.log_out' | t | customer_logout_link }}
                 {% else %}
-                  {{ 'layout.customer.account' | t }}
+                  {{ 'layout.customer.account' | t | customer_login_link }}
 
                   {% comment %}
                   {% if shop.customer_accounts_optional %}
@@ -124,8 +101,8 @@
                 {% endif %}
               </div>
             {% endif %}
-            <div class="header-link cart-link">
-              <a href="/cart" id="cartToggle" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+            <div class="header-link cart-link hide">
+              <a href="/cart" id="cartToggle" class="site-header__cart-toggle" aria-controls="CartDrawer" aria-expanded="false">
                 {{ 'layout.cart.title' | t }}
               </a>
             </div>
@@ -193,15 +170,17 @@
                     {{ link.title }}
                     <span class="icon icon-arrow-down" aria-hidden="true"></span>
                   </a>
-                  <ul class="site-nav__dropdown dropdown-shadow grid grid--full">
-                    {% for childlink in linklists[child_list_handle].links %}
-                      {% cycle '<li class="grid__item one-half dropdown-border"><ul class="grid grid--full">','','','','','', '' %}
-                        <li class="grid__item one-whole">
-                        <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a></li>
-                      {% cycle '','','','', '','', '</ul></li>' %}
-                    {% endfor %}
-                    </ul></li>
-                  </ul>
+                  <div class="site-nav__dropdown">
+                    <ul class="dropdown-shadow grid grid--full">
+                      {% for childlink in linklists[child_list_handle].links %}
+                        {% cycle '<li class="grid__item one-half dropdown-border"><ul class="grid grid--full">','','','','','', '' %}
+                          <li class="grid__item one-whole">
+                          <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a></li>
+                        {% cycle '','','','', '','', '</ul></li>' %}
+                      {% endfor %}
+                      </ul></li>
+                    </ul>
+                  </div>
                 </li>
               {% else %}
                 <li {% if link.active %}class="site-nav--active"{% endif %}>
@@ -226,8 +205,10 @@
     <footer class="site-footer small--text-center" role="contentinfo">
       <div class="wrapper">
         <div class="grid">
+          <div class="site-footer-cta grid__item push--large--one-twelfth large--eleven-twelfths">
+            <div class="grid">
           {% if settings.footer_newsletter_enable %}
-            <div class="site-footer-cta flex-middle-align grid__item push--large--one-twelfth large--seven-twelfths medium--eight-tenths small--one-whole">
+            
               {% comment %}
                 MailChimp is the go-to newsletter service for Shopify.
                 Use the link below to find your MailChimp form action
@@ -236,26 +217,25 @@
                 MailChimp newsletter integration and requirement:
                  - http://docs.shopify.com/support/configuration/store-customization/where-do-i-get-my-mailchimp-form-action
               {% endcomment %}
-              <div class="newsletter">
-                <h4 class="styled-header newsletter-title left">{{ 'layout.footer.newsletter_title' | t }}</h4>
-                {% if settings.newsletter_form_action != blank %}
-                  {% assign form_action = settings.newsletter_form_action %}
-                {% else %}
-                  {% assign form_action = '#' %}
-                {% endif %}
-                <div class="newsletter-outer">
-                  <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group flex-middle-align">
-                    <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field newsletter-email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
-                    <span class="input-group-btn newsletter-btn">
-                      <input type="submit" name="subscribe" id="subscribe">
-                    </span>
-                  </form>
+              <div class="newsletter-footer grid__item large--nine-twelfths medium--nine-twelfths">
+                <div class="newsletter">
+                  <h4 class="styled-header newsletter-title left">{{ 'layout.footer.newsletter_title' | t }}</h4>
+                  {% if settings.newsletter_form_action != blank %}
+                    {% assign form_action = settings.newsletter_form_action %}
+                  {% else %}
+                    {% assign form_action = '#' %}
+                  {% endif %}
+                    <form action="{{ form_action }}" id="newsletter-form" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+                      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field newsletter-email" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                      <span class="input-group-btn newsletter-btn">
+                        <input type="submit" name="subscribe" id="subscribe">
+                      </span>
+                    </form>
                 </div>
               </div>
-            </div>
           {% endif %}
           {% if settings.footer_social_enable %}
-            <div class="grid__item large--five-twelfths medium--two-tenths small--one-whole">
+              <div class="social-footer grid__item large--three-twelfths medium--three-twelfths">
                 <ul class="inline-list social-icons zero-margin-list right">
                   {% if settings.social_facebook_link != blank %}
                     <li id="facebook">
@@ -276,8 +256,10 @@
                     </li>
                   {% endif %}
                 </ul>
-            </div>
+              </div>
           {% endif %}
+            </div>
+          </div>
         </div>
         <div class="grid">
           <div class="grid__item text-center">
@@ -308,34 +290,6 @@
       });
     {% endif %}
   </script>
-
-  {% comment %}
-    Ajaxify your cart with this plugin.
-    Documentation:
-      - http://shopify.com/timber#ajax-cart
-  {% endcomment %}
-  {% if settings.ajax_cart_enable %}
-    {{ 'handlebars.min.js' | asset_url | script_tag }}
-    {% include 'ajax-cart-template' %}
-    {{ 'ajax-cart.js' | asset_url | script_tag }}
-    <script>
-      jQuery(function($) {
-        ajaxCart.init({
-          formSelector: '#AddToCartForm',
-          cartContainer: '#CartContainer',
-          addToCartSelector: '#AddToCart',
-          cartCountSelector: '#CartCount',
-          cartCostSelector: '#CartCost',
-          moneyFormat: {{ shop.money_format | json }}
-        });
-      });
-
-      jQuery('body').on('ajaxCart.afterCartLoad', function(evt, cart) {
-        // Bind to 'ajaxCart.afterCartLoad' to run any javascript after the cart has loaded in the DOM
-        timber.RightDrawer.open();
-      });
-    </script>
-  {% endif %}
 
 </body>
 </html>

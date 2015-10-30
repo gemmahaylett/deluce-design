@@ -7,6 +7,9 @@
 
 {% endcomment %}
 
+<div class="grid page">
+  <div class="grid__item push--large--one-twelfth large--ten-twelfths">
+
 {% if cart.item_count > 0 %}
 
   <h1>{{ 'cart.general.title' | t }}</h1>
@@ -112,7 +115,11 @@
   {% comment %}
     The cart is empty
   {% endcomment %}
-  <h2>{{ 'cart.general.title' | t }}</h2>
+  <div class="page-title">
+    <h2>{{ 'cart.general.title' | t }}</h2>
+  </div>
   <p>{{ 'cart.general.empty' | t }}</p>
   <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
 {% endif %}
+</div>
+</div>
