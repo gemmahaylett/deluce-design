@@ -46,11 +46,10 @@
 
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
-  {% endcomment %}
   {% if template contains 'customers' %}
     {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   {% endif %}
-
+  {% endcomment %}
 </head>
 
 {% comment %}
@@ -164,13 +163,13 @@
                 <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
                   <a href="{{ link.url }}" class="medium-down--hide site-nav__link-main site-nav__link">
                     {{ link.title }}
-                    <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                    <span class="icon icon-arrow-down visibility-none" aria-hidden="true"></span>
                   </a>
-                  <a href="#" class="large--hide site-nav__link">
+                  <a href="https://www.etsy.com/shop/jdeluce" class="large--hide site-nav__link">
                     {{ link.title }}
-                    <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                    <span class="icon icon-arrow-down hide" aria-hidden="true"></span>
                   </a>
-                  <div class="site-nav__dropdown">
+                  <div class="site-nav__dropdown hide">
                     <ul class="dropdown-shadow grid grid--full">
                       {% for childlink in linklists[child_list_handle].links %}
                         {% cycle '<li class="grid__item one-half dropdown-border"><ul class="grid grid--full">','','','','','', '' %}
@@ -263,7 +262,7 @@
         </div>
         <div class="grid">
           <div class="grid__item text-center">
-            <p>@delucedesign all rights reserved<br>
+            <p><span class="co-name">©DeLuce Design</span> all rights reserved<br>
               Artwork is copyright of Jill Deluce and May not be used without permission</p>
           </div>
         </div>

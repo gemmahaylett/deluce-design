@@ -138,7 +138,7 @@ $drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
 $siteWidth: 1170px;
 $gutter: 30px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
-$radius: 0px;
+$radius:  0px;
 
 // Z-index
 $zindexNavDropdowns: 5;
@@ -1792,7 +1792,7 @@ label.error {
     > .grid__item {
       float: none;
       display: table-cell;
-      //vertical-align: middle;
+      vertical-align: middle;
     }
   }
 }
@@ -1890,7 +1890,7 @@ label.error {
   &:hover,
   &:active,
   &:focus {
-    color: darken($colorNavText, 15%);
+    color: #dfde21;
   }
 
   .icon-arrow-down {
@@ -1901,7 +1901,7 @@ label.error {
   }
 
   .site-nav--active > & {
-    font-weight: bold;
+    color: #dfde21;
   }
 
   .site-nav--mobile & {
