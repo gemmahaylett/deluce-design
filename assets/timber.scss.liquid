@@ -29,7 +29,6 @@
   #Links and Buttons
   #Lists
   #Tables
-  #Reponsive Tables
   #OOCSS Media Object
   #Images and Iframes
   #Forms
@@ -115,9 +114,6 @@ $colorNavText: #333;
 $colorFooterBg: {{ settings.color_footer_bg }};
 $colorFooterText: {{ settings.color_footer_text }};
 
-// Logo max width
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-
 // Helper colors
 $disabledGrey: #f6f6f6;
 $disabledBorder: darken($disabledGrey, 25%);
@@ -132,13 +128,13 @@ $drawerCartWidth: 300px;
 $colorDrawers: #f6f6f6;
 $colorDrawerBorder: darken($colorDrawers, 5%);
 $colorDrawerText: #333;
-$drawerTransition: all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1);
+$drawerTransition: 'all 0.4s cubic-bezier(0.46, 0.01, 0.32, 1)';
 
 // Sizing variables
-$siteWidth: 1170px;
+$siteWidth: 1180px;
 $gutter: 30px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
-$radius:  0px;
+$radius: 3px;
 
 // Z-index
 $zindexNavDropdowns: 5;
@@ -181,7 +177,6 @@ $socialIconFontStack: 'icons';
   font-style: normal;
 }
 
-
 /*============================================================================
   #Sass Mixins
 ==============================================================================*/
@@ -201,52 +196,40 @@ $socialIconFontStack: 'icons';
   *zoom: 1;
 }
 
-/*============================================================================
-  Prefixer mixin for generating vendor prefixes:
-    - Based on https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
-    - Usage:
-
-      // Input:
-      .element {
-        @include prefixer(transform, scale(1), ms webkit spec);
-      }
-
-      // Output:
-      .element {
-        -ms-transform: scale(1);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-      }
-==============================================================================*/
-
-@mixin prefixer($property, $value, $prefixes) {
-  @each $prefix in $prefixes {
-    @if $prefix == webkit {
-      -webkit-#{$property}: $value;
-    } @else if $prefix == moz {
-      -moz-#{$property}: $value;
-    } @else if $prefix == ms {
-      -ms-#{$property}: $value;
-    } @else if $prefix == o {
-      -o-#{$property}: $value;
-    } @else if $prefix == spec {
-      #{$property}: $value;
-    } @else  {
-      @warn "Unrecognized prefix: #{$prefix}";
-    }
-  }
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
 }
 
-@mixin transform($transform) {
-  @include prefixer(transform, $transform, ms webkit spec);
+@mixin transition($transition: 0.1s all) {
+  @include prefix('transition', #{$transition});
 }
 
-@mixin user-select($value: none) {
-  @include prefixer(user-select, $value, webkit moz ms spec);
+@mixin transform($transform: 0.1s all) {
+  @include prefix('transform', #{$transform});
+}
+
+@mixin gradient($from, $to, $fallback) {
+  background: $fallback;
+  background: -moz-linear-gradient(top, $from 0%, $to 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to));
+  background: -webkit-linear-gradient(top, $from 0%, $to 100%);
+  background: -o-linear-gradient(top, $from 0%, $to 100%);
+  background: -ms-linear-gradient(top, $from 0%, $to 100%);
+  background: linear-gradient(top bottom, $from 0%, $to 100%);
 }
 
 @mixin backface($visibility: hidden) {
-  @include prefixer(backface-visibility, $visibility, webkit spec);
+  @include prefix('backface-visibility', #{$visibility});
+}
+
+@mixin box-sizing($box-sizing: border-box) {
+  -webkit-box-sizing: #{$box-sizing};
+  -moz-box-sizing: #{$box-sizing};
+  box-sizing: #{$box-sizing};
 }
 
 @function em($target, $context: $baseFontSize) {
@@ -263,14 +246,6 @@ $socialIconFontStack: 'icons';
   @else {
     @return #fff;
   }
-}
-
-/*============================================================================
-  Layer promotion mixin for creating smoother animations with higher FPS.
-==============================================================================*/
-@mixin promote-layer($properties: transform) {
-  -webkit-transform: translateZ(0); // translateZ hack
-  will-change: $properties; // spec
 }
 
 /*============================================================================
@@ -304,7 +279,7 @@ $max: max-width;
   #Normalize
 ==============================================================================*/
 *, input, :before, :after {
-  box-sizing: border-box;
+  @include box-sizing();
 }
 
 html, body {
@@ -407,7 +382,6 @@ $class-type: unquote(".");
 }
 
 #{$class-type}grid__item {
-  box-sizing: border-box;
   float: left;
   min-height: 1px;
   padding-left: $gridGutter;
@@ -415,6 +389,7 @@ $class-type: unquote(".");
   @if $mobile-first == true {
     width: 100%;
   }
+  @include box-sizing();
 }
 
 /*============================================================================
@@ -787,14 +762,6 @@ body {
   }
 }
 
-.visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  height: 1px; width: 1px;
-  margin: -1px; padding: 0; border: 0;
-}
-
 /*============================================================================
   #Typography
 ==============================================================================*/
@@ -1112,7 +1079,7 @@ html input[disabled] {
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid transparent;
-  @include user-select(none);
+  @include prefix('user-select', 'none');
   -webkit-appearance: none;
   -moz-appearance: none;
   border-radius: $radius;
@@ -1241,77 +1208,6 @@ th, td {
   border: 1px solid $colorBorder;
 }
 
-/*============================================================================
-  Responsive tables, defined with .table--responsive on table element.
-  Only defined for IE9+
-==============================================================================*/
-.table--responsive {
-  @include at-query($max, $small) {
-    thead {
-      display: none;
-    }
-
-    tr {
-      display: block;
-    }
-
-    // IE9 table layout fixes
-    tr,
-    td {
-      float: left;
-      clear: both;
-      width: 100%;
-    }
-
-    th,
-    td {
-      display: block;
-      text-align: right;
-      padding: 15px;
-    }
-
-    td:before {
-      content: attr(data-label);
-      float: left;
-      text-align: center;
-      font-size: 12px;
-      padding-right: 10px;
-    }
-
-    &.cart-table {
-      img {
-        margin: 0 auto;
-      }
-
-      .js-qty {
-        float: right;
-      }
-    }
-  }
-}
-
-@include at-query($max, $small) {
-  .table--small-hide {
-    display: none !important;
-  }
-
-  .table__section + .table__section {
-    position: relative;
-    margin-top: 10px;
-    padding-top: 15px;
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 15px;
-      right: 15px;
-      border-bottom: 1px solid $colorBorder;
-    }
-  }
-}
-
 
 /*============================================================================
   #OOCSS Media Object
@@ -1351,8 +1247,9 @@ svg:not(:root) {
   overflow: hidden;
 }
 
-img,
-iframe {
+img.auto,
+.grid__item img,
+.grid__item iframe {
   max-width: 100%;
 }
 
@@ -1399,7 +1296,7 @@ button,
 select {
   padding: 0;
   margin: 0;
-  @include user-select(text);
+  @include prefix('user-select', 'text');
 }
 
 button {
@@ -1657,7 +1554,11 @@ label.error {
   remaining accessible to screen readers (h5bp.com)
 ==============================================================================*/
 .supports-fontface .icon-fallback-text .fallback-text {
-  @extend .visually-hidden;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  position: absolute;
+  height: 1px;
+  width: 1px;
 }
 
 .icon:before {
@@ -1679,7 +1580,6 @@ label.error {
 }
 
 /*================ Icon mapping ================*/
-.icon-amazon_payments:before { content: "\e800"; }
 .icon-american_express:before { content: "\41"; }
 .icon-arrow-down:before { content: "\e607"; }
 .icon-bitcoin:before { content: "\42"; }
@@ -1715,7 +1615,7 @@ label.error {
 .icon-youtube:before { content: "\79"; }
 
 .payment-icons {
-  @include user-select(none);
+  @include prefix('user-select', 'none');
   cursor: default;
 
   li {
@@ -1822,7 +1722,7 @@ label.error {
 }
 
 .site-header__logo-link {
-  max-width: $logoMaxWidth;
+  max-width: 450px; // max upload size
   margin: 0 auto;
 }
 
@@ -1890,7 +1790,7 @@ label.error {
   &:hover,
   &:active,
   &:focus {
-    color: #dfde21;
+    color: #DFDE21;
   }
 
   .icon-arrow-down {
@@ -1901,7 +1801,8 @@ label.error {
   }
 
   .site-nav--active > & {
-    color: #dfde21;
+    font-weight: normal;
+    color: #DFDE21;
   }
 
   .site-nav--mobile & {
@@ -2054,13 +1955,13 @@ label.error {
   max-height: 0;
   visibility: hidden;
   overflow: hidden;
-  transition: all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
-  @include backface();
+  @include backface(hidden);
+  @include transition(all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95));
 
   .mobile-nav--expanded + & {
     visibility: visible;
     max-height: 700px;
-    transition: all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    @include transition(all 700ms cubic-bezier(0.57, 0.06, 0.05, 0.95));
   }
 
   .mobile-nav__item:after {
@@ -2079,11 +1980,9 @@ label.error {
 ==============================================================================*/
 .js-drawer-open {
   overflow: hidden;
-  height: 100%;
 }
 
 .drawer {
-  @include promote-layer();
   display: none;
   position: fixed;
   overflow-y: auto;
@@ -2096,7 +1995,7 @@ label.error {
   z-index: $zindexDrawer;
   color: $colorDrawerText;
   background-color: $colorDrawers;
-  transition: $drawerTransition;
+  @include transition($drawerTransition);
 
   a {
     color: $colorDrawerText;
@@ -2148,8 +2047,7 @@ label.error {
 }
 
 .is-moved-by-drawer {
-  @include promote-layer();
-  transition: $drawerTransition;
+  @include transition($drawerTransition);
 
   .js-drawer-open-left & {
     @include transform(translateX($drawerNavWidth));
@@ -2362,22 +2260,11 @@ label.error {
 
   &:first-child {
     padding-top: 0;
+    border-top: 0 none;
   }
 
   .js-qty {
     margin: 0 auto;
-  }
-}
-
-.cart-table {
-  th {
-    font-weight: normal;
-  }
-
-  td,
-  th {
-    padding: 30px 15px;
-    border: none;
   }
 }
 
@@ -2400,7 +2287,6 @@ label.error {
 
   img {
     display: block;
-    max-width: 100%;
   }
 }
 
@@ -2450,8 +2336,8 @@ label.error {
     max-height: 0;
     overflow: hidden;
     visibility: hidden;
-    transition: all 450ms cubic-bezier(0.57,.06,.05,.95);
-    @include backface();
+    @include backface(hidden);
+    @include transition(all 450ms cubic-bezier(0.57,.06,.05,.95));
   }
 }
 
@@ -2511,7 +2397,7 @@ label.error {
   background: none;
   text-align: center;
   overflow: hidden;
-  @include user-select(none);
+  @include prefix('user-select', 'none');
 
   &:hover,
   &:focus {
@@ -2536,7 +2422,7 @@ label.error {
 
   .is-loading & {
     opacity: 0.5;
-    transition: none;
+    @include transition(none);
   }
 }
 

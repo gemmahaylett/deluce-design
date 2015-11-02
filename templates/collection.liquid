@@ -35,6 +35,9 @@
     {% else %}
       <header class="section-header">
         <h1 class="section-header__title section-header__left">{{ collection.title }}</h1>
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
       </header>
     {% endif %}
 
@@ -54,7 +57,7 @@
 
       {% else %}
 
-        {% if collection.handle == 'all' and current_tags == '' %}
+        {% if collection.handle == 'all' %}
 
           {% comment %}
             Add default products to help with onboarding for collections/all only
@@ -70,7 +73,7 @@
           {% comment %}
             If collection exists but is empty, display message
           {% endcomment %}
-          <div class="grid__item">
+          <div class="grid-item">
             <p>{{ 'collections.general.no_matches' | t }}</p>
           </div>
 

@@ -18,7 +18,7 @@
   Set the default grid_item_width if no variable is set
 {% endcomment %}
 {% unless grid_item_width %}
-  {% assign grid_item_width = 'large--one-quarter medium--one-half' %}
+  {% assign grid_item_width = 'large--one-third medium--one-half' %}
 {% endunless %}
 
 {% comment %}
@@ -83,7 +83,6 @@
       <br><strong>{{ 'products.product.sold_out' | t }}</strong>
     {% endif %}
     {% if on_sale %}
-      <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
       <br><s>{{ product.compare_at_price | money }}</s>
     {% endif %}
   </p>

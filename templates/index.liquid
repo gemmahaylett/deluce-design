@@ -13,7 +13,7 @@
 {% endcomment %}
   <div class="grid-uniform">
     <div class="grid__item push--large--one-twelfth large--ten-twelfths">
-      <div class="flexslider">
+      <div id="mainslider" class="flexslider">
         <ul class="slides">
           <li><img src="{{ 'slide1.jpg' | asset_url }}" /></li>
           {% if settings.slide-2-check %}
@@ -33,13 +33,13 @@
     </div>
   </div>
 <script>
-$(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-    slideshow: true,
-    controlNav: false,               
-    directionNav: false
-  });
+$(document).ready(function() {
+  $('#mainslider').flexslider({
+     animation: "fade",
+     controlNav: false,
+     slideshowSpeed: 4000,
+     directionNav: false
+   });
 });
 </script>
   <div class="grid__item push--large--one-twelfth large--ten-twelfths">
@@ -48,7 +48,7 @@ $(window).load(function() {
         <h5 class="styled-header left brush-underline zero-padding"><span>Follow My Journey On Instagram</span></h5>
       </div>
       <div class="grid__item insta-handle-outer large--one-half medium--two-twelfths small--one-whole">
-        <div class="insta-handle right">©DeLuce Design</div>
+        <div class="insta-handle right">©DeLuce&nbsp;Design</div>
       </div>
     </div>
   </div>
